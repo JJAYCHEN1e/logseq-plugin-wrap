@@ -61,8 +61,8 @@ Create your own wrappings/replacements with optional key bindings for selected t
   "repl-clear": {
     "label": "Remove formatting",
     "binding": "mod+shift+x",
-    "regex": "\\[\\[(?:#|\\$)(?:red|green|blue)\\]\\]|==([^=]*)==|~~([^~]*)~~|\\^\\^([^\\^]*)\\^\\^|\\*\\*([^\\*]*)\\*\\*|\\*([^\\*]*)\\*|_([^_]*)_|\\$([^\\$]*)\\$",
-    "replacement": "$1$2$3$4$5$6",
+    "regex": "\\[\\[(?:#|\\$)(?:red|green|blue)\\]\\]|==([^=]*)==|~~([^~]*)~~|\\^\\^([^\\^]*)\\^\\^|\\*\\*([^\\*]*)\\*\\*|\\*([^\\*]*)\\*|_([^_]*)_|\\$([^\\$]*)\\$|`([^`]*)`",
+    "replacement": "$1$2$3$4$5$6$7$8",
     "icon": "<svg t=\"1643381967522\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"1377\" width=\"200\" height=\"200\"><path d=\"M824.4 438.8c0-37.6-30-67.6-67.6-67.6l-135.2 0L621.6 104.8c0-37.6-30-67.6-67.6-67.6-37.6 0-67.6 30-67.6 67.6l0 266.4L358.8 371.2c-37.6 0-67.6 30-67.6 67.6l0 67.6L828 506.4l0-67.6L824.4 438.8 824.4 438.8zM824.4 574c-11.2 0-536.8 0-536.8 0S250 972 88.4 972L280 972c75.2 0 108.8-217.6 108.8-217.6s33.6 195.2 3.6 217.6l105.2 0c-3.6 0 0 0 11.2 0 52.4-7.6 60-247.6 60-247.6s52.4 244 45.2 244c-26.4 0-78.8 0-105.2 0l0 0 154 0c-7.6 0 0 0 11.2 0 48.8-11.2 52.4-187.6 52.4-187.6s22.4 187.6 15.2 187.6c-18.8 0-48.8 0-67.6 0l-3.6 0 90 0C895.6 972 903.2 784.4 824.4 574L824.4 574z\" p-id=\"1378\" fill=\"#eeeeee\"></path></svg>"
   }
 }
@@ -133,8 +133,8 @@ Here is another set of configs, you can modify it how you like:
   "repl-clear": {
     "label": "Remove formatting",
     "binding": "mod+shift+x",
-    "regex": "\\[\\[(?:#|\\$)(?:red|green|blue)\\]\\]|==([^=]*)==|~~([^~]*)~~|\\^\\^([^\\^]*)\\^\\^|\\*\\*([^\\*]*)\\*\\*|\\*([^\\*]*)\\*|_([^_]*)_|\\$([^\\$]*)\\$",
-    "replacement": "$1$2$3$4$5$6",
+    "regex": "\\[\\[(?:#|\\$)(?:red|green|blue)\\]\\]|==([^=]*)==|~~([^~]*)~~|\\^\\^([^\\^]*)\\^\\^|\\*\\*([^\\*]*)\\*\\*|\\*([^\\*]*)\\*|_([^_]*)_|\\$([^\\$]*)\\$|`([^`]*)`",
+    "replacement": "$1$2$3$4$5$6$7$8",
     "icon": "<svg t=\"1643381967522\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"1377\" width=\"200\" height=\"200\"><path d=\"M824.4 438.8c0-37.6-30-67.6-67.6-67.6l-135.2 0L621.6 104.8c0-37.6-30-67.6-67.6-67.6-37.6 0-67.6 30-67.6 67.6l0 266.4L358.8 371.2c-37.6 0-67.6 30-67.6 67.6l0 67.6L828 506.4l0-67.6L824.4 438.8 824.4 438.8zM824.4 574c-11.2 0-536.8 0-536.8 0S250 972 88.4 972L280 972c75.2 0 108.8-217.6 108.8-217.6s33.6 195.2 3.6 217.6l105.2 0c-3.6 0 0 0 11.2 0 52.4-7.6 60-247.6 60-247.6s52.4 244 45.2 244c-26.4 0-78.8 0-105.2 0l0 0 154 0c-7.6 0 0 0 11.2 0 48.8-11.2 52.4-187.6 52.4-187.6s22.4 187.6 15.2 187.6c-18.8 0-48.8 0-67.6 0l-3.6 0 90 0C895.6 972 903.2 784.4 824.4 574L824.4 574z\" p-id=\"1378\" fill=\"#eeeeee\"></path></svg>"
   }
 }
@@ -189,6 +189,10 @@ Please refer to the following example:
 Builtin styles for highlight and text color is as follows:
 
 ```css
+mark {
+  background: #fef3ac !important;
+  color: #262626 !important;
+}
 span[data-ref="#red"],
 span[data-ref="#green"],
 span[data-ref="#blue"],
@@ -198,29 +202,32 @@ span[data-ref="$blue"] {
   display: none;
 }
 span[data-ref="#red"] + mark {
-  background: #ffc7c7;
+  background: #ffc7c7 !important;
+  color: #262626 !important;
 }
 span[data-ref="#green"] + mark {
-  background: #ccffc1;
+  background: #ccffc1 !important;
+  color: #262626 !important;
 }
 span[data-ref="#blue"] + mark {
-  background: #abdfff;
+  background: #abdfff !important;
+  color: #262626 !important;
 }
 span[data-ref="$red"] + mark {
-  color: #f00;
-  background: unset;
+  color: #f00 !important;
+  background: unset !important;
   padding: 0;
   border-radius: 0;
 }
 span[data-ref="$green"] + mark {
-  color: #0f0;
-  background: unset;
+  color: #0f0 !important;
+  background: unset !important;
   padding: 0;
   border-radius: 0;
 }
 span[data-ref="$blue"] + mark {
-  color: #00f;
-  background: unset;
+  color: #00f !important;
+  background: unset !important;
   padding: 0;
   border-radius: 0;
 }
