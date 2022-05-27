@@ -340,7 +340,7 @@ async function onSelectionChange(e) {
 async function positionToolbar() {
   const curPos = await logseq.Editor.getEditingCursorPosition()
   if (curPos != null) {
-    toolbar.style.top = `${curPos.top + curPos.rect.y + 35}px`
+    toolbar.style.top = `${curPos.top + curPos.rect.y + 75}px`
     if (
       curPos.left + curPos.rect.x + toolbar.clientWidth <=
       parent.window.innerWidth
