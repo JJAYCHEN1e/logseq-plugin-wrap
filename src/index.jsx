@@ -79,7 +79,7 @@ async function main() {
       background: #FFC677;
     }
     span[data-ref="#purple"] + mark {
-      background: #bda3f4;
+      background: #bda3f4 !important;
     }
 
     span[data-ref="$red"] + mark {
