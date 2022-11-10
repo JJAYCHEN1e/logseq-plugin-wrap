@@ -21,6 +21,13 @@
   "resolved" "https://registry.npmjs.org/@rollup/plugin-html/-/plugin-html-0.2.4.tgz"
   "version" "0.2.4"
 
+"@rollup/plugin-json@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.npmmirror.com/@rollup/plugin-json/-/plugin-json-4.1.0.tgz#54e09867ae6963c593844d8bd7a9c718294496f3"
+  integrity sha512-yfLbTdNS6amI/2OpmbiBoW12vngr5NW2jCJVZSBEz+H5KfUJZ2M7sDjk0U6GOOdCWFVScShte29o9NezJ53TPw==
+  dependencies:
+    "@rollup/pluginutils" "^3.0.8"
+
 "@rollup/plugin-node-resolve@^13.3.0":
   "integrity" "sha512-Lus8rbUo1eEcnS4yTFKLZrVumLPY+YayBdWXgFSHYhTT2iJbMhoaaBL3xl5NCdeRytErGr8tZ0L71BMRmnlwSw=="
   "resolved" "https://registry.npmjs.org/@rollup/plugin-node-resolve/-/plugin-node-resolve-13.3.0.tgz"
@@ -33,10 +40,10 @@
     "is-module" "^1.0.0"
     "resolve" "^1.19.0"
 
-"@rollup/pluginutils@^3.1.0":
-  "integrity" "sha512-GksZ6pr6TpIjHm8h9lSQ8pi8BE9VeubNT0OMJ3B5uZJ8pz73NPiqOtCog/x2/QzM1ENChPKxMDhiQuRHsqc+lg=="
-  "resolved" "https://registry.npmjs.org/@rollup/pluginutils/-/pluginutils-3.1.0.tgz"
-  "version" "3.1.0"
+"@rollup/pluginutils@^3.0.8", "@rollup/pluginutils@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.npmmirror.com/@rollup/pluginutils/-/pluginutils-3.1.0.tgz#706b4524ee6dc8b103b3c995533e5ad680c02b9b"
+  integrity sha512-GksZ6pr6TpIjHm8h9lSQ8pi8BE9VeubNT0OMJ3B5uZJ8pz73NPiqOtCog/x2/QzM1ENChPKxMDhiQuRHsqc+lg==
   dependencies:
     "@types/estree" "0.0.39"
     "estree-walker" "^1.0.1"
@@ -230,32 +237,37 @@
   "resolved" "https://registry.npmjs.org/is-core-module/-/is-core-module-2.9.0.tgz"
   "version" "2.9.0"
   dependencies:
-    "has" "^1.0.3"
+    has "^1.0.3"
 
-"is-module@^1.0.0":
-  "integrity" "sha1-Mlj7afeMFNW4FdZkM2tM/7ZEFZE="
-  "resolved" "https://registry.npmjs.org/is-module/-/is-module-1.0.0.tgz"
-  "version" "1.0.0"
+is-module@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmmirror.com/is-module/-/is-module-1.0.0.tgz#3258fb69f78c14d5b815d664336b4cffb6441591"
+  integrity sha512-51ypPSPCoTEIN9dy5Oy+h4pShgJmPCygKfyRCISBI+JoWT/2oJvK8QPxmwv7b/p239jXrm9M1mlQbyKJ5A152g==
 
-"joycon@^3.1.1":
-  "integrity" "sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw=="
-  "resolved" "https://registry.npmjs.org/joycon/-/joycon-3.1.1.tgz"
-  "version" "3.1.1"
+joycon@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.npmmirror.com/joycon/-/joycon-3.1.1.tgz#bce8596d6ae808f8b68168f5fc69280996894f03"
+  integrity sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==
 
-"jsonc-parser@^3.0.0":
-  "integrity" "sha512-fQzRfAbIBnR0IQvftw9FJveWiHp72Fg20giDrHz6TdfB12UH/uue0D3hm57UB5KgAVuniLMCaS8P1IMj9NR7cA=="
-  "resolved" "https://registry.npmjs.org/jsonc-parser/-/jsonc-parser-3.0.0.tgz"
-  "version" "3.0.0"
+jsonc-parser@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmmirror.com/jsonc-parser/-/jsonc-parser-3.0.0.tgz#abdd785701c7e7eaca8a9ec8cf070ca51a745a22"
+  integrity sha512-fQzRfAbIBnR0IQvftw9FJveWiHp72Fg20giDrHz6TdfB12UH/uue0D3hm57UB5KgAVuniLMCaS8P1IMj9NR7cA==
 
-"lodash-es@4.17.21":
-  "integrity" "sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw=="
-  "resolved" "https://registry.npmmirror.com/lodash-es/-/lodash-es-4.17.21.tgz"
-  "version" "4.17.21"
+lodash-es@4.17.21:
+  version "4.17.21"
+  resolved "https://registry.npmmirror.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
 
-"lower-case@^2.0.2":
-  "integrity" "sha1-b6I3xj29xKgsoP2ILkci3F5jTig="
-  "resolved" "https://registry.nlark.com/lower-case/download/lower-case-2.0.2.tgz?cache=0&sync_timestamp=1624607698082&other_urls=https%3A%2F%2Fregistry.nlark.com%2Flower-case%2Fdownload%2Flower-case-2.0.2.tgz"
-  "version" "2.0.2"
+logseq-l10n@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npmmirror.com/logseq-l10n/-/logseq-l10n-0.2.0.tgz#642ba00f8738dc20dfa983fe223465b5318a6204"
+  integrity sha512-exBSvxVijlAW6Zy6eYRWGroJL3qxAouCZqSQzAeIRuoIU8nA0vN2S2+5slvWTFM159hlqhtdJXqudwgCs4y2Vg==
+
+lower-case@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.nlark.com/lower-case/download/lower-case-2.0.2.tgz?cache=0&sync_timestamp=1624607698082&other_urls=https%3A%2F%2Fregistry.nlark.com%2Flower-case%2Fdownload%2Flower-case-2.0.2.tgz#6fa237c63dbdc4a82ca0fd882e4722dc5e634e28"
+  integrity sha1-b6I3xj29xKgsoP2ILkci3F5jTig=
   dependencies:
     "tslib" "^2.0.3"
 

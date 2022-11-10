@@ -1,7 +1,9 @@
 import "@logseq/libs"
+import { setup, t } from "logseq-l10n"
 import { render } from "preact"
 import { debounce, throttle } from "rambdax"
 import Toolbar from "./Toolbar.jsx"
+import zhCN from "./translations/zh-CN.json"
 
 const TOOLBAR_ID = "kef-wrap-toolbar"
 let toolbar
@@ -11,6 +13,8 @@ async function main() {
   // Reset values.
   toolbar = null
   textarea = null
+
+  await setup({ builtinTranslations: { "zh-CN": zhCN } })
 
   const definitions = await getDefinitions()
 
@@ -47,6 +51,9 @@ async function main() {
     .kef-wrap-tb-item img {
       width: 20px;
       height: 20px;
+    }
+    .kef-wrap-hidden #kef-wrap-toolbar {
+      display: none;
     }
 
     mark {
@@ -117,10 +124,27 @@ async function main() {
       template: `<div id="${TOOLBAR_ID}"></div>`,
     })
 
+    if (logseq.settings?.toolbarShortcut) {
+      logseq.App.registerCommandPalette(
+        {
+          key: "toggle-toolbar",
+          label: t("Toggle toolbar display"),
+          keybinding: { binding: logseq.settings?.toolbarShortcut },
+        },
+        toggleToolbarDisplay,
+      )
+    } else {
+      logseq.App.registerCommandPalette(
+        { key: "toggle-toolbar", label: t("Toggle toolbar display") },
+        toggleToolbarDisplay,
+      )
+    }
+
     // Let div root element get generated first.
     setTimeout(async () => {
       toolbar = parent.document.getElementById(TOOLBAR_ID)
-      render(<Toolbar items={definitions} model={model} />, toolbar)
+      const items = definitions.filter((definition) => definition.icon)
+      render(<Toolbar items={items} model={model} />, toolbar)
 
       toolbar.addEventListener("transitionend", onToolbarTransitionEnd)
       parent.document.addEventListener("focusout", onBlur)
@@ -172,12 +196,11 @@ async function getDefinitions() {
       .map(([k, v]) => ({ key: k, ...v }))
   }
 
-  const { preferredLanguage: lang, preferredFormat } =
-    await logseq.App.getUserConfigs()
+  const { preferredFormat } = await logseq.App.getUserConfigs()
   return [
     {
       key: "wrap-cloze",
-      label: lang === "zh-CN" ? "包围成 cloze" : "Wrap with cloze",
+      label: t("Wrap with cloze"),
       binding: "",
       template: " {{cloze $^}}",
       icon: `<svg t="1643261888324" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5478" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path d="M341.333333 396.8V320H170.666667v384h170.666666v-76.8H256V396.8zM682.666667 396.8V320h170.666666v384h-170.666666v-76.8h85.333333V396.8zM535.04 533.333333h40.96v-42.666666h-40.96V203.093333l92.16-24.746666-11.093333-40.96-102.4 27.306666-102.4-27.306666-11.093334 40.96 92.16 24.746666v287.573334H448v42.666666h44.373333v287.573334l-92.16 24.746666 11.093334 40.96 102.4-27.306666 102.4 27.306666 11.093333-40.96-92.16-24.746666z" p-id="5479" fill="#eeeeee"></path></svg>`,
@@ -191,14 +214,14 @@ async function getDefinitions() {
     },
     {
       key: "wrap-red-hl",
-      label: lang === "zh-CN" ? "包围成红色高亮" : "Wrap with red highlight",
+      label: t("Wrap with red highlight"),
       binding: "mod+ctrl+2",
       template: preferredFormat === "org" ? "[[#red]]^^$^^^" : "[[#red]]==$^==",
       icon: `<svg t="1643262039637" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6950" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path d="M114.727313 1024l0.305421-0.427589h-0.977347l0.671926 0.427589zM632.721199 809.365446c-156.680934 0-272.466006 41.644143-341.659116 75.927642L290.878831 972.108985C340.402833 942.605324 458.249497 885.720677 632.73647 885.720677H962.804862v-76.355231H632.73647z m-109.432317-72.018253l252.048617-528.378197a38.177615 38.177615 0 0 0-13.621773-48.790993L551.295981 24.464216a38.192886 38.192886 0 0 0-50.089031 7.696607L130.349594 483.908911a38.208157 38.208157 0 0 0-7.024682 35.886958c31.763776 100.315502 36.436716 182.626441 34.695817 234.777064L94.477906 870.449631h132.094549l32.221908-42.606219c49.78361-25.624815 134.15614-60.931474 233.326314-69.177839a38.147073 38.147073 0 0 0 31.152934-21.31838z m-59.343285-52.54767c-71.66702 8.505973-134.950235 28.572127-184.489509 49.157497l-45.339736-29.244053c-2.290657-50.883126-10.613377-114.716099-31.901215-187.849139l336.161539-409.874879 153.474014 98.986922-193.728492 408.653195-176.838714-112.746134-47.935814 60.015211 191.117142 121.847678-0.519215 1.053702z" p-id="6951" fill="#ffc7c7"></path></svg>`,
     },
     {
       key: "wrap-green-hl",
-      label: lang === "zh-CN" ? "包围成绿色高亮" : "Wrap with green highlight",
+      label: t("Wrap with green highlight"),
       binding: "",
       template:
         preferredFormat === "org" ? "[[#green]]^^$^^^" : "[[#green]]==$^==",
@@ -206,7 +229,7 @@ async function getDefinitions() {
     },
     {
       key: "wrap-blue-hl",
-      label: lang === "zh-CN" ? "包围成蓝色高亮" : "Wrap with blue highlight",
+      label: t("Wrap with blue highlight"),
       binding: "",
       template:
         preferredFormat === "org" ? "[[#blue]]^^$^^^" : "[[#blue]]==$^==",
@@ -221,14 +244,14 @@ async function getDefinitions() {
     },
     {
       key: "wrap-red-text",
-      label: lang === "zh-CN" ? "包围成红色文字" : "Wrap with red text",
+      label: t("Wrap with red text"),
       binding: "",
       template: preferredFormat === "org" ? "[[$red]]^^$^^^" : "[[$red]]==$^==",
       icon: `<svg t="1643270432116" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12761" width="200" height="200"><path d="M256 768h512a85.333333 85.333333 0 0 1 85.333333 85.333333v42.666667a85.333333 85.333333 0 0 1-85.333333 85.333333H256a85.333333 85.333333 0 0 1-85.333333-85.333333v-42.666667a85.333333 85.333333 0 0 1 85.333333-85.333333z m0 85.333333v42.666667h512v-42.666667H256z m401.578667-341.333333H366.421333L298.666667 682.666667H213.333333l256.128-640H554.666667l256 640h-85.333334l-67.754666-170.666667z m-33.877334-85.333333L512 145.365333 400.298667 426.666667h223.402666z" p-id="12762" fill="#f00"></path></svg>`,
     },
     {
       key: "wrap-green-text",
-      label: lang === "zh-CN" ? "包围成绿色文字" : "Wrap with green text",
+      label: t("Wrap with green text"),
       binding: "",
       template:
         preferredFormat === "org" ? "[[$green]]^^$^^^" : "[[$green]]==$^==",
@@ -236,7 +259,7 @@ async function getDefinitions() {
     },
     {
       key: "wrap-blue-text",
-      label: lang === "zh-CN" ? "包围成蓝色文字" : "Wrap with blue text",
+      label: t("Wrap with blue text"),
       binding: "",
       template:
         preferredFormat === "org" ? "[[$blue]]^^$^^^" : "[[$blue]]==$^==",
@@ -244,7 +267,7 @@ async function getDefinitions() {
     },
     {
       key: "repl-clear",
-      label: lang === "zh-CN" ? "去除格式化" : "Remove formatting",
+      label: t("Remove formatting"),
       binding: "mod+shift+x",
       regex: `\\[\\[(?:#|\\$)(?:red|green|blue)\\]\\]|==([^=]*)==|~~([^~]*)~~|\\^\\^([^\\^]*)\\^\\^|\\*\\*([^\\*]*)\\*\\*|\\*([^\\*]*)\\*|_([^_]*)_|\\$([^\\$]*)\\$|\`([^\`]*)\``,
       replacement: "$1$2$3$4$5$6$7$8",
@@ -257,11 +280,8 @@ async function updateBlockText(producer, ...args) {
   const block = await logseq.Editor.getCurrentBlock()
 
   if (block == null || textarea == null) {
-    const { preferredLanguage: lang } = await logseq.App.getUserConfigs()
     logseq.App.showMsg(
-      lang === "zh-CN"
-        ? "该命令仅在编辑文字时可使用"
-        : "This command can only be used when editing text",
+      t("This command can only be used when editing text"),
       "error",
     )
     return
@@ -306,8 +326,8 @@ function wrap(before, selection, after, start, end, template) {
   const [wrapBefore, wrapAfter] = template.split("$^")
   return [
     `${before}${wrapBefore}${text}${wrapAfter ?? ""}${whitespaces}${after}`,
-    start + wrapBefore.length,
-    end + wrapBefore.length - whitespaces.length,
+    start,
+    end + wrapBefore.length - whitespaces.length + wrapAfter.length,
   ]
 }
 
@@ -386,6 +406,15 @@ const showToolbar = debounce(async () => {
 function onScroll(e) {
   hideToolbar()
   showToolbar()
+}
+
+function toggleToolbarDisplay() {
+  const appContainer = parent.document.getElementById("app-container")
+  if (appContainer.classList.contains("kef-wrap-hidden")) {
+    appContainer.classList.remove("kef-wrap-hidden")
+  } else {
+    appContainer.classList.add("kef-wrap-hidden")
+  }
 }
 
 logseq.ready(main).catch(console.error)
